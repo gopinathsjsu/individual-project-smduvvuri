@@ -1,12 +1,26 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ValidateOrder {
     public void validateTransaction(String inputFilePath){
+        ArrayList<String> itemList=new ArrayList<>();
+        ArrayList<String> quantityList=new ArrayList<>();
+        boolean flag=false;
+
         Inventory inventory = Inventory.getInstance();
+
+        WriteOutputToFile writeOutputToFile=new WriteOutputToFile();
+
+        File file1 =new File("output.txt");
+        if(file1.exists()){
+            file1.delete();
+        }
+
+        File file2 =new File("finaloutput.csv");
+        if(file2.exists()){
+            file2.delete();
+        }
 
         HashMap<String, Integer> cap=new HashMap<>();
         cap.put("Essentials",3);
@@ -31,10 +45,8 @@ public class ValidateOrder {
                     String item=array[0];
                     String category=inventory.getItemCategory().get(item);
                     int quantity=Integer.parseInt(array[1]);
-                    System.out.println(category);
-                    System.out.println(quantity);
+                    int price= Integer.parseInt(inventory.getItemPrice().get(item));
                     if(array.length>2) {
-                        System.out.println("card exists");
                         cardnumber = array[2];
                         lineTracker++;
                     }
@@ -45,17 +57,24 @@ public class ValidateOrder {
                             int inventoryQuantity=Integer.parseInt(inventory.getItemQuantity().get(item));
                             cap.put(category,currentcap-quantity);
                             inventory.getItemQuantity().put(item, Integer.toString(inventoryQuantity-quantity));
-                            System.out.println("Total "+totalPrice);
+                            //writeOutputToFile.writeToCSVFile(item, quantity, price);
+                            itemList.add(item);
+                            quantityList.add(Integer.toString(quantity));
+                            flag=true;
                         }
                         else{
-                            System.out.println("Please correct quantities "+item);
+                            writeOutputToFile.writeToTextFile("Please correct quantities of the following item\n", item);
+                            System.out.println("Order could not be processed. Please check output.txt for details.");
+                            flag=false;
                             break;
                         }
                         if(!inventory.getCardDetails().contains(cardnumber))
                             inventory.getCardDetails().add(cardnumber);
                     }
                     else{
-                        System.out.println("Insufficient stock of "+item+" in inventory, please change the quantity for it.");
+                        writeOutputToFile.writeToTextFile("Insufficient stock of the following items \n", item);
+                        System.out.println("Order could not be processed. Please check output.txt for details.");
+                        flag=false;
                         break;
                     }
 
@@ -72,5 +91,37 @@ public class ValidateOrder {
                 e.printStackTrace();
             }
         }
+
+        if(flag){
+            System.out.println("Order processed. Please check 'finaloutput.csv' for the final invoice.");
+
+            FileWriter pw2=null;
+            try {
+                pw2 = new FileWriter("finaloutput.csv", true);
+                pw2.write("Item");
+                pw2.write(",");
+                pw2.write("Quantity");
+                pw2.write(",");
+                pw2.write("Price\n");
+
+
+                for(int i=0;i<itemList.size();i++){
+                    pw2.write(itemList.get(i));
+                    pw2.write(",");
+                    pw2.write(quantityList.get(i));
+                    pw2.write(",");
+                    pw2.write(inventory.getItemPrice().get(itemList.get(i)));
+                    pw2.write("\n");
+                }
+                pw2.write("Total Price");
+                pw2.write(" : ");
+                pw2.write(String.valueOf(totalPrice));
+                pw2.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 }

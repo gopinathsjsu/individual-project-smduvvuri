@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Billing {
     public static void main(String[] args){
-
         loadInventoryData();
         loadCardData();
         processOrderRequest();
