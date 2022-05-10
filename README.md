@@ -7,9 +7,8 @@
 Designed and developed a Java application to maintain an inventory of items. The application can process order requests and give the desired output- a .csv file with the final invoice and a .txt file if the order can not be processed.
 
 ### Steps to run the application
-1. Go to Project/src folder
-2. Run 
-    `javac *.java` and then `java Billing`
+1. Run 
+    `javac *.java` and then `java Billing` in the folder
 3. There will be a prompt to enter the input file path
 4. Enter the input file path
 5. The application will be run and the either a .csv file (in case of successful transactions) or a .txt file (in case of issues while processing the order request). This will be displayed on the console
