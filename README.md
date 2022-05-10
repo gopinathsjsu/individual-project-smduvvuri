@@ -8,7 +8,7 @@ Designed and developed a Java application to maintain an inventory of items. The
 
 ### Steps to run the application
 1. Run 
-    `javac *.java` and then `java Billing` in the folder
+    `javac *.java` to compile and then `java Billing` to execute the program in the folder
 3. There will be a prompt to enter the input file path
 4. Enter the input file path
 5. The application will be run and the either a .csv file (in case of successful transactions) or a .txt file (in case of issues while processing the order request). This will be displayed on the console
