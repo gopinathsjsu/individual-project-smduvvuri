@@ -22,7 +22,7 @@ I have used this design pattern to implement the `Inventory.java` class. A globa
 
 2. Factory
 Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
-I have used this design pattern in implementing the `ParseCSVFile` interface. This interface is implemented by `InventoryStockParser.java' and `InventoryCardsParser.java`.
+I have used this design pattern in implementing the `ParseCSVFile` interface. This interface is implemented by `InventoryStockParser.java` and `InventoryCardsParser.java`.
 
 3. Strategy
 Strategy is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.
