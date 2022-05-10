@@ -16,15 +16,15 @@ Designed and developed a Java application to maintain an inventory of items. The
 ### Design Patterns
 
 The following design patters are used in the application design:
-1. Singleton
+1. Singleton<br>
 Singleton is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.
 I have used this design pattern to implement the `Inventory.java` class. A global instance of this class is created to store the stock data and this instance is used throughout the run of the application.
 
-2. Factory
+2. Factory<br>
 Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
 I have used this design pattern in implementing the `ParseCSVFile` interface. This interface is implemented by `InventoryStockParser.java` and `InventoryCardsParser.java`.
 
-3. Strategy
+3. Strategy<br>
 Strategy is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.
 I have used this design pattern to implement the `WriteOutputToFile.java` which is called whenever there is an issue and the class method is called for the specific error.
 
